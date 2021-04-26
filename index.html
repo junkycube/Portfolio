@@ -6,19 +6,40 @@
 </title>
 <style type="text/css">
 
+:root {
+    --bgColor: rgba(0, 0, 0, 1);
+    --fgColor: rgba(255, 255, 255, 1);
+}
+
 #container {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
+    background: var(--bgColor);
+    color: var(--fgColor);
 }
 
 </style>
 <script type="text/javascript">
 
 function main() {
-    document.getElementById('container').style.background = 'rgba('+document.getElementById('inR').value+', '+document.getElementById('inG').value+', '+document.getElementById('inB').value+', 1)';
+    var vCSS = document.querySelector(':root');
+    var colorCode = [
+        document.getElementById('inR').value,
+        document.getElementById('inG').value,
+        document.getElementById('inB').value
+    ];
+    var opCode = [
+        255 - parseInt(colorCode[0]),
+        255 - parseInt(colorCode[1]),
+        255 - parseInt(colorCode[2])
+    ];
+
+    vCSS.style.setProperty('--bgColor','rgba('+colorCode[0]+', '+colorCode[1]+', '+colorCode[2]+', 1)');
+    vCSS.style.setProperty('--fgColor','rgba('+opCode[0]+', '+opCode[1]+', '+opCode[2]+', 1)');
+
 }
 
 </script>
@@ -28,6 +49,7 @@ function main() {
         <input type="text" id="inR" value="0">
         <input type="text" id="inG" value="0">
         <input type="text" id="inB" value="0">
+        <div id="testText">Testing Text</div>
     </div>
 <script type="text/javascript">
 
