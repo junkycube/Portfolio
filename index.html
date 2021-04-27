@@ -11,26 +11,31 @@
     --fgColor: rgba(255, 255, 255, 1);
 }
 
-#container {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--bgColor);
-    color: var(--fgColor);
-    font-family: 'Calibri';
-}
+body {font-family: 'Calibri'; background: var(--bgColor); color: var(--fgColor);}
 
+.container {position: fixed; background: var(--fgColor); color: var(--bgColor); font-size: 16px; box-shadow: 3px 3px rgba(0, 0, 0, 0.5); overflow: hidden; border-radius: 5px;}
+.task {right: 5px; width: 300px; top: 5px; height: calc(80% - 5px);}
+.style {right: 5px; width: 300px; bottom: 5px; height: calc(20% - 10px);}
+
+.taskList .item {transition: all 1s; overflow: hidden;}
+.taskList .item:hover .title {background: rgba(255, 255, 255, .2)}
+.taskList .title {position: relative; padding: 10px; background: var(--fgColor); transition: all .5s; z-index: 10; color: var(--bgColor);}
+.taskList .description {position: relative; padding: 0px 10px; margin-bottom: 10px; background: var(--fgColor); transition: all .5s; z-index: 1; color: var(--bgColor);}
+.taskList input[type=radio] {display: none;}
+.taskList input[type=radio]:not(:checked) + .item .description {height: 0px !important; margin-bottom: 0px;}
+
+.style .title {position: relative; padding: 10px; background: var(--fgColor); transition: all .5s; z-index: 10; color: var(--bgColor);}
+.style .rgbVal {padding: 10px; width: 30px; margin: 10px; border: none; border-radius: 5px; box-shadow: inset 3px 3px rgba(0, 0, 0, 0.5); background: var(--bgColor); color: var(--fgColor)}
+.style .rgbVal:focus {outline: none;}
 </style>
 <script type="text/javascript">
 
 function main() {
     var vCSS = document.querySelector(':root');
     var colorCode = [
-        document.getElementById('inR').value,
-        document.getElementById('inG').value,
-        document.getElementById('inB').value
+        document.getElementsByClassName('rgbVal')[0].value,
+        document.getElementsByClassName('rgbVal')[1].value,
+        document.getElementsByClassName('rgbVal')[2].value
     ];
     var opCode = [
         255 - parseInt(colorCode[0]),
@@ -46,25 +51,65 @@ function main() {
 </script>
 </head>
 <body>
-    <div id="container">
-        <input type="text" id="inR" value="0">
-        <input type="text" id="inG" value="0">
-        <input type="text" id="inB" value="0">
-        <div id="testText">Testing Text</div>
+    <div class="task container"></div>
+    <div class="style container">
+        <div class="title">Style Adjuster</div>
+        <input type="text" class="rgbVal" value="180">
+        <input type="text" class="rgbVal" value="230">
+        <input type="text" class="rgbVal" value="230">
     </div>
 <script type="text/javascript">
 
-document.getElementById('inR').addEventListener('keyup', function() {
+document.getElementsByClassName('rgbVal')[0].addEventListener('keyup', function() {
 	main();
 }, false);
 
-document.getElementById('inG').addEventListener('keyup', function() {
+document.getElementsByClassName('rgbVal')[1].addEventListener('keyup', function() {
 	main();
 }, false);
 
-document.getElementById('inB').addEventListener('keyup', function() {
+document.getElementsByClassName('rgbVal')[2].addEventListener('keyup', function() {
 	main();
 }, false);
+
+main();
+
+var taskBox = document.getElementsByClassName('task')[0];
+var tasks = [
+    {
+        'Task':'Task 1',
+        'Description':'Description 1'
+    },
+    {
+        'Task':'Task 2',
+        'Description':'Description 2'
+    },
+    {
+        'Task':'Task 3',
+        'Description':'Description 3'
+    }
+]
+
+htmlString = '';
+for (i = 0; i < tasks.length; i++) {
+    var taskTitle = tasks[i].Task;
+    var taskDescription = tasks[i].Description;
+    htmlString += '<label class="taskList">'+
+        '<input type="radio" name="taskList" class="taskBox"><div class="item">'+
+        '<div class="title">' + taskTitle + '</div>'+
+        '<div class="description">' + taskDescription + '</div>'+
+        '</div>'+
+        '</label>';
+}
+
+taskBox.innerHTML = htmlString;
+
+var classDesc = document.getElementsByClassName('description')
+var classBox = document.getElementsByClassName('taskBox')
+for (i = 0; i < classDesc.length; i++) {
+    classBox[i].checked = true;
+    classDesc[i].style.height = classDesc[i].offsetHeight + 'px';
+}
 
 </script>
 </body>
