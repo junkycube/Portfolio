@@ -1,9 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Timeline</title>
+<style type="text/css">
+
+:root {
+	--aH: 15px;
+	--aW: 10px;
+	--red: rgb(150, 0, 0);
+	--grn: rgb(0, 150, 0);
+	--blu: rgb(0, 0, 150);
+}
+
+body {background: ghostwhite; color: white; font-family: "Calibri"; font-weight: bold;}
+
+.track {height: calc(2 * var(--aH) + 1px); margin-bottom: 5px;}
+
+.aBeg {display: inline-block; height: calc(2 * var(--aH) + 1px); width: 300px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; overflow: hidden;}
+.aExt {display: inline-block; height: calc(2 * var(--aH) + 1px); width: 150px; filter: opacity(50%); transform: translate(calc(-1 * var(--aW)));}
+
+.aEnd {display: inline-block; border-top: var(--aH) solid transparent; border-bottom: var(--aH) solid transparent;}
+.aExE {display: inline-block; border-top: var(--aH) solid transparent; border-bottom: var(--aH) solid transparent; filter: opacity(50%); transform: translate(calc(-1 * var(--aW)));}
+
+.aStr {display: flex; height: 100%; align-items: center; justify-content: center;}
+
+.rBeg {background: var(--red);}
+.rEnd {border-left: var(--aW) solid var(--red); height: 1px;}
+.gBeg {background: var(--grn);}
+.gEnd {border-left: var(--aW) solid var(--grn); height: 1px;}
+.bBeg {background: var(--blu);}
+.bEnd {border-left: var(--aW) solid var(--blu); height: 1px;}
+
+.line {border-bottom: 1px dashed black;}
+
+</style>
 </head>
 <body>
-
+<div id="cLeft">
+	<div class="sLabel">
+		<div class="tLabel"></div><div class="cLabel rBeg"></div>
+		<div class="tLabel"></div><div class="cLabel gBeg"></div>
+		<div class="tLabel"></div><div class="cLabel bBeg"></div>
+	</div>
+</div>
+<div id="cBody">
+	<div class="track">
+		<div class="aBeg rBeg"><div class="aStr">Test Event</div></div><div class="aEnd rEnd"></div><div class="aExt rBeg"></div><div class="aExE rEnd"></div>
+	</div>
+	<div class="track">
+		<div class="aBeg gBeg"><div class="aStr">Test Event</div></div><div class="aEnd gEnd"></div><div class="aExt gBeg"></div><div class="aExE gEnd"></div>
+	</div>
+	<div class="track">
+		<div class="aBeg bBeg"><div class="aStr">Test Event</div></div><div class="aEnd bEnd"></div><div class="aExt bBeg"></div><div class="aExE bEnd"></div>
+	</div>
+</div>
 </body>
 </html>
